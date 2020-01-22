@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cálculo Empréstimo</title>
+    <link href="minimal-table.css" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            font: normal 12pt verdana;
+
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>Parcelas</th>
+            <th>Taxa de Juros</th>
+            <th>Consignado</th>
+        </tr>
+        <tr>
+            <td>2 - 6</td>
+            <td>2,5%</td>
+            <td>1,5%</td>
+        </tr>
+        <tr>
+            <td>7 - 12</td>
+            <td>5,0%</td>
+            <td>3,5%</td>
+        </tr>
+        <tr>
+            <td>13 - 24</td>
+            <td>6,5%</td>
+            <td>5,0%</td>
+        </tr>
+    </table>
+    <h1>Simulação do Empréstimo</h1>
+
+    <script>
+
+        let emprestimo = Number.parseFloat(window.prompt('Qual o valor do empréstimo? R$'))
+        let parcelas = Number.parseFloat(window.prompt('Qual a quantidade de parcelas?'))
+        let consig = window.prompt('Consignado? S / N')
+
+
+        function imprimirEmprestimo(juros) {
+            let totalJuros = emprestimo * (parcelas * juros / 100)
+            let totalASerPago = emprestimo + totalJuros
+            let valorDasParcelas = totalASerPago / parcelas
+            document.write(`Valor solicitado: ${emprestimo.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}</br>`)
+            document.write(`Número de parcelas: ${parcelas}</br>`)
+            document.write(`Taxa de Juros: ${juros.toFixed(1).replace(".", ",")}% ao mês</br>`)
+            document.write(`O valor a ser pago em juros é de ${totalJuros.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}.</br>`)
+            document.write(`O valor total do empréstimo mais juros é de ${totalASerPago.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}.</br>`)
+            document.write(`Você pagará ${parcelas} parcelas de ${valorDasParcelas.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}.`)
+        }
+
+        if (parcelas <= 6 && consig == 'n') {
+            document.write('Consignado: Não</br>')
+            imprimirEmprestimo(2.5)
+
+        }
+        else if (parcelas > 6 && parcelas <= 12 && consig == 'n') {
+            document.write('Consignado: Não</br>')
+            imprimirEmprestimo(5)
+        }
+        else if (parcelas > 12 && consig == 'n') {
+            document.write('Consignado: Não</br>')
+            imprimirEmprestimo(6.5)
+        }
+
+        else if (parcelas <= 6 && consig == 's') {
+            document.write('Consignado: Sim</br>')
+            imprimirEmprestimo(1.5)
+        }
+        else if (parcelas > 6 && parcelas <= 12 && consig == 's') {
+            document.write('Consignado: Sim</br>')
+            imprimirEmprestimo(3.5)
+        }
+        else if (parcelas > 12 && consig == 's') {
+            document.write('Consignado: Sim</br>')
+            imprimirEmprestimo(5)
+        }
+
+
+
+    </script>
+</body>
+
+</html>
